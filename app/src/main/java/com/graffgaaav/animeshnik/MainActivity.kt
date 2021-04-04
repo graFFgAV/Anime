@@ -21,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var  searchview : androidx.appcompat.widget.SearchView
     private lateinit var mDrawer: FlowingDrawer
-    private lateinit var keyboard : InputMethodManager
 
     @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,26 +33,25 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(getDrawable(R.drawable.gradient_red))
         supportActionBar!!.elevation = 0f
 
-        keyboard = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
         val vNavigation = findViewById<View>(R.id.vNavigation) as NavigationView
         vNavigation.setNavigationItemSelectedListener { menuItem ->
 
-            val bundle = Bundle()
-
             when (menuItem.itemId){
-                R.id.menu_top_movie ->  bundle.putString("position", "movie")
-                R.id.menu_to_TV->  bundle.putString("position", "tv")
-                R.id.menu_airing ->  bundle.putString("position", "airing")
-                R.id.menu_upcoming ->  bundle.putString("position", "upcoming")
-                R.id.menu_manga ->  bundle.putString("position", "manga")
+                R.id.menu_top_movie -> navigateBottom( "movie")
+                R.id.menu_to_TV->  navigateBottom( "tv")
+                R.id.menu_airing ->  navigateBottom( "airing")
+                R.id.menu_upcoming ->  navigateBottom( "upcoming")
+                R.id.menu_manga ->  navigateBottom("manga")
             }
-            navController = findNavController(R.id.my_nav_host_fragment)
-            navController.navigate(R.id.topMovieFragment, bundle)
-
             true
         }
+    }
 
+    private fun navigateBottom(sss: String){
+        val bundle = Bundle()
+        bundle.putString("position", sss)
+        navController = findNavController(R.id.my_nav_host_fragment)
+        navController.navigate(R.id.topMovieFragment, bundle)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -69,9 +67,8 @@ class MainActivity : AppCompatActivity() {
                 navController = findNavController(R.id.my_nav_host_fragment)
                 navController.navigate(R.id.searchFragment, bundle)
 
-//                keyboard.hideSoftInputFromWindow(
-//                    this.getWindowToken(),
-//                    InputMethodManager.HIDE_NOT_ALWAYS);
+                val inputManager:InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputManager.hideSoftInputFromWindow(currentFocus?.windowToken, InputMethodManager.SHOW_FORCED)
 
                 return true
             }
@@ -82,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         })
         return true
     }
-
 
     fun showUpButton() {
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
