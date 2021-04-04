@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Animeshnik" parent="Theme.MaterialComponents.DayNight">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryDark">#56FF0000</item>
+        <item name="colorOnPrimary">#442B2D</item>
+        <item name="colorSurface">#858b97</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">#5D6068</item>
+        <item name="colorSecondaryVariant">#FBB8AC</item>
+        <item name="colorOnSecondary">#442B2D</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+</resources>
