@@ -42,6 +42,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.menu_airing ->  navigateBottom( "airing")
                 R.id.menu_upcoming ->  navigateBottom( "upcoming")
                 R.id.menu_manga ->  navigateBottom("manga")
+                R.id.menu_main -> {
+                navController = findNavController(R.id.my_nav_host_fragment)
+                navController.navigate(R.id.mainFragment)
+                }
             }
             true
         }
