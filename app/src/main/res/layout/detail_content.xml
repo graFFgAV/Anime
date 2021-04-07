@@ -26,21 +26,20 @@
                 android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-            </ImageView>
+                app:layout_constraintTop_toTopOf="parent"></ImageView>
 
             <TextView
                 android:id="@+id/title_detail"
-                android:layout_width="wrap_content"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="6dp"
-                android:text="@string/app_name"
+                android:gravity="left"
                 android:maxLines="2"
+                android:text="@string/app_name"
                 android:textSize="17sp"
                 app:layout_constraintStart_toEndOf="@+id/image_detail"
-                app:layout_constraintTop_toTopOf="parent">
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"></TextView>
 
             <TextView
                 android:id="@+id/type_detail"
@@ -48,11 +47,12 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="6dp"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="@string/app_name"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/image_detail"
                 app:layout_constraintTop_toBottomOf="@+id/title_detail">
+
             </TextView>
 
             <TextView
@@ -61,12 +61,13 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="6dp"
-                android:maxLines="1"
+                android:maxLines="2"
                 android:text="Вышел: null"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toTopOf="@+id/amount_episodes_detail"
                 app:layout_constraintStart_toEndOf="@+id/image_detail"
                 app:layout_constraintTop_toBottomOf="@+id/type_detail">
+
             </TextView>
 
             <TextView
@@ -75,27 +76,30 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="6dp"
+                android:maxLines="2"
                 android:text="@string/app_name"
-                android:maxLines="1"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/image_detail"
                 app:layout_constraintTop_toBottomOf="@+id/date_detail">
+
             </TextView>
 
             <TextView
                 android:id="@+id/dlitelnost_detail"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="6dp"
+                android:maxLines="2"
                 android:text="@string/app_name"
-                android:maxLines="1"
                 android:textSize="14sp"
                 app:layout_constraintStart_toEndOf="@+id/image_detail"
                 app:layout_constraintTop_toBottomOf="@+id/amount_episodes_detail">
+
             </TextView>
 
             <FrameLayout
+                android:id="@+id/frameLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -133,6 +137,20 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_fav"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_margin="12dp"
+        app:cornerRadius="16dp"
+        android:text="add to favorite"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+    </com.google.android.material.button.MaterialButton>
+
+
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
         android:layout_width="match_parent"
@@ -141,7 +159,7 @@
         app:cardCornerRadius="14dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialCardView">
+        app:layout_constraintTop_toBottomOf="@+id/button_fav">
 
         <LinearLayout
             android:layout_width="match_parent"

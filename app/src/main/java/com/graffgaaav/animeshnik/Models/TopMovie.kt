@@ -5,12 +5,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
-
-@Entity(tableName = "topAnime")
 data class TopMovie (
 
     @ColumnInfo(name = "mal_id")
-    val mal_id :Int ,
+    val mal_id :Int,
 
     @PrimaryKey
     @ColumnInfo(name = "title")

@@ -70,7 +70,6 @@ class MainFragment : Fragment(), MainMenuAdapter.Clicker{
     }
 
     private fun loadRecyclerView(companies: ScheduleResponse){
-        loader.visibility = View.GONE
         val adapter = context?.let { ScheduleAdapter(companies) }
         rcvSchedule.layoutManager =  LinearLayoutManager(context,
             LinearLayoutManager.VERTICAL, false)

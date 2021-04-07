@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -15,23 +17,26 @@ import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.graffgaaav.animeshnik.Adapters.CharacterAdapter
 import com.graffgaaav.animeshnik.Adapters.RecomAdapter
+import com.graffgaaav.animeshnik.DataBase.AppDatabase
 import com.graffgaaav.animeshnik.MainActivity
-import com.graffgaaav.animeshnik.Models.AnimeDetails
-import com.graffgaaav.animeshnik.Models.AnimeRecommendation
-import com.graffgaaav.animeshnik.Models.CharactersResponse
-import com.graffgaaav.animeshnik.Models.RecommendationsResponse
+import com.graffgaaav.animeshnik.Models.*
 import com.graffgaaav.animeshnik.R
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.detail_content.*
 import kotlinx.android.synthetic.main.fragment_details.*
+import java.util.concurrent.TimeUnit
 
 
 class DetailsFragment : Fragment(), RecomAdapter.Clicker {
 
     private lateinit var toolbar: ActionBar
     private var mCompositeDisposable: CompositeDisposable? = CompositeDisposable()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,13 +49,37 @@ class DetailsFragment : Fragment(), RecomAdapter.Clicker {
         toolbar = (activity as AppCompatActivity?)!!.supportActionBar!!
         toolbar.title = name
 
+        var button_fav = v.findViewById<Button>(R.id.button_fav)
+
+        button_fav.setOnClickListener {
+            addToFavorite(name, requireArguments().getString("image_url"))
+        }
+
         loadDetails()
         loadRecom()
         loadChar()
         return v
     }
 
+    @SuppressLint("CheckResult")
+    private fun addToFavorite(name: String?, image: String?) {
 
+        val fm = FavoriteModel(requireArguments().getString("id")?.toInt()!!, name!!, image!!)
+
+        Single.fromCallable {
+            AppDatabase.getDataBase(requireContext()).dao().insert(fm)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(this::showToast, this::showError)
+    }
+
+    fun showToast(unit: Unit) {
+        Toast.makeText(context, "success", Toast.LENGTH_SHORT).show()
+    }
+
+    fun showError(error: Throwable){
+        Toast.makeText(context, "Уже добавлено, чо тыкаешь", Toast.LENGTH_SHORT).show()
+    }
+    
     override fun onResume() {
         super.onResume()
         (activity as MainActivity?)!!.showUpButton()
@@ -58,7 +87,9 @@ class DetailsFragment : Fragment(), RecomAdapter.Clicker {
 
     private fun loadDetails() {
         mCompositeDisposable!!.add(
-            (RetrofitApi.getRetrofit())!!.getAnimeDetail(requireArguments().getString("id")?.toInt()!!)
+            (RetrofitApi.getRetrofit())!!.getAnimeDetail(
+                requireArguments().getString("id")?.toInt()!!
+            )
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(this::setDetails, this::initError)
@@ -116,11 +147,13 @@ class DetailsFragment : Fragment(), RecomAdapter.Clicker {
         loaderDetails.visibility = View.GONE
         content.visibility = View.VISIBLE
 
-        Glide.with(requireContext()).load(requireArguments().getString("image_url")).into(image_detail)
+        Glide.with(requireContext()).load(requireArguments().getString("image_url")).into(
+            image_detail
+        )
         title_detail.text = details.title
         type_detail.text = "Type: ${details.type}"
         amount_episodes_detail.text = "Kол-во серий: ${details.episodes.toString()}"
-        dlitelnost_detail.text = "Длительность: ${details.duration}"
+        dlitelnost_detail.text = "Длительность:\n${details.duration}"
 
         score.text = "${details.score.toString()}/10"
         text_detail.text = details.synopsis
@@ -149,5 +182,7 @@ class DetailsFragment : Fragment(), RecomAdapter.Clicker {
 
     }
 }
+
+
 
 

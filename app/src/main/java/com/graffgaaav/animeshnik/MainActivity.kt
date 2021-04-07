@@ -46,6 +46,10 @@ class MainActivity : AppCompatActivity() {
                 navController = findNavController(R.id.my_nav_host_fragment)
                 navController.navigate(R.id.mainFragment)
                 }
+                R.id.menu_favorite -> {
+                    navController = findNavController(R.id.my_nav_host_fragment)
+                    navController.navigate(R.id.favoriteFragment)
+                }
             }
             true
         }

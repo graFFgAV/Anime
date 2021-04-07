@@ -22,8 +22,6 @@ class RecomAdapter(val companies: ArrayList<AnimeRecommendation>, var listener: 
         fun OnClick(company: AnimeRecommendation)
     }
 
-
-
     override fun onCreateViewHolder(p0: ViewGroup, p1: Int): ViewHolder {
         val view = LayoutInflater.from(p0.context).inflate(R.layout.top_movie_item, p0, false)
         return ViewHolder(view)

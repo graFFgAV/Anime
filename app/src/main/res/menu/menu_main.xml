@@ -2,22 +2,31 @@
     <group android:id="@+id/menu_group_1">
         <item
             android:id="@+id/menu_top_movie"
-            android:title="top_movie" />
+            android:title="Movies"
+            android:icon="@drawable/ic_baseline_movie_24"/>
         <item
+            android:icon="@drawable/ic_baseline_live_tv_24"
             android:id="@+id/menu_to_TV"
-            android:title="to_TV" />
+            android:title="TVs" />
         <item
+            android:icon="@drawable/ic_baseline_menu_book_24"
             android:id="@+id/menu_manga"
-            android:title="manga" />
+            android:title="Manga" />
         <item
+            android:icon="@drawable/ic_baseline_air_24"
             android:id="@+id/menu_airing"
-            android:title="airing" />
+            android:title="Airing" />
         <item
+            android:icon="@drawable/ic_baseline_update_24"
             android:id="@+id/menu_upcoming"
-            android:title="upcoming" />
+            android:title="Upcoming" />
         <item
             android:id="@+id/menu_main"
             android:title="Main"
             android:icon="@drawable/ic_baseline_home_24" />
+        <item
+            android:id="@+id/menu_favorite"
+            android:title="Favorite"
+            android:icon="@drawable/ic_baseline_favorite_24" />
     </group>
 </menu>
